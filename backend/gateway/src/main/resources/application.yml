@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  config:
+    import: optional:nacos:localhost:8848
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: service-example
+          uri: lb://service-example
+          predicates:
+            - Path=/api/example/**
+          filters:
+            - StripPrefix=2
+        - id: service-auth
+          uri: lb://service-example
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
