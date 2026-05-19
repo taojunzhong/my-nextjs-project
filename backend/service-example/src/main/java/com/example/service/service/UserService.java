@@ -8,8 +8,8 @@ import com.example.common.entity.UserEntity;
 import com.example.common.response.Result;
 import com.example.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,7 +23,7 @@ public class UserService {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public Result<LoginResponse> login(LoginRequest request) {
-        UserEntity user = userRepository.findByUsername(request.getUsername());
+        UserEntity user = userRepository.findByUsername(request.getUsername()).orElse(null);
         
         if (user == null) {
             return Result.error(401, "用户名不存在");
@@ -61,7 +61,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setNickname(request.getUsername());
         user.setStatus(1);
-        user.setAvatar(null);
 
         UserEntity savedUser = userRepository.save(user);
         UserDTO userDTO = convertToDTO(savedUser);
@@ -70,7 +69,7 @@ public class UserService {
     }
 
     public Result<UserDTO> getUserById(Long id) {
-        UserEntity user = userRepository.findById(id);
+        UserEntity user = userRepository.findById(id).orElse(null);
         if (user == null) {
             return Result.error(404, "用户不存在");
         }
