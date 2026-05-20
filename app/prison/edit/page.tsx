@@ -19,9 +19,6 @@ export default function EditPrisonPage() {
     prisonNumber: '',
     description: '',
     location: '',
-    establishedDate: '',
-    capacity: '',
-    currentCount: '',
     securityLevel: '',
     wardenName: '',
     contactPhone: '',
@@ -52,9 +49,6 @@ export default function EditPrisonPage() {
           prisonNumber: prison.prisonNumber || '',
           description: prison.description || '',
           location: prison.location || '',
-          establishedDate: prison.establishedDate ? prison.establishedDate.split('T')[0] : '',
-          capacity: prison.capacity?.toString() || '',
-          currentCount: prison.currentCount?.toString() || '',
           securityLevel: prison.securityLevel || '',
           wardenName: prison.wardenName || '',
           contactPhone: prison.contactPhone || '',
@@ -129,11 +123,7 @@ export default function EditPrisonPage() {
           'Content-Type': 'application/json',
           'Authorization': token ? `Bearer ${token}` : ''
         },
-        body: JSON.stringify({
-          ...formData,
-          capacity: formData.capacity ? parseInt(formData.capacity) : null,
-          currentCount: formData.currentCount ? parseInt(formData.currentCount) : null
-        })
+        body: JSON.stringify(formData)
       })
       
       const data = await response.json()
@@ -279,47 +269,6 @@ export default function EditPrisonPage() {
               </div>
               
               <div>
-                <label className="block text-[#ffd700] font-semibold mb-2">成立日期</label>
-                <input
-                  type="date"
-                  name="establishedDate"
-                  value={formData.establishedDate}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 bg-[#2a2a2a] border border-[#8b0000]/50 rounded-lg text-[#ffd700] focus:border-[#8b0000] focus:outline-none transition-colors"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label className="block text-[#ffd700] font-semibold mb-2">容量</label>
-                <input
-                  type="number"
-                  name="capacity"
-                  value={formData.capacity}
-                  onChange={handleChange}
-                  min="0"
-                  className="w-full px-4 py-2 bg-[#2a2a2a] border border-[#8b0000]/50 rounded-lg text-[#ffd700] focus:border-[#8b0000] focus:outline-none transition-colors"
-                  placeholder="请输入容量"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-[#ffd700] font-semibold mb-2">当前人数</label>
-                <input
-                  type="number"
-                  name="currentCount"
-                  value={formData.currentCount}
-                  onChange={handleChange}
-                  min="0"
-                  className="w-full px-4 py-2 bg-[#2a2a2a] border border-[#8b0000]/50 rounded-lg text-[#ffd700] focus:border-[#8b0000] focus:outline-none transition-colors"
-                  placeholder="请输入当前人数"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
                 <label className="block text-[#ffd700] font-semibold mb-2">安全等级</label>
                 <select
                   name="securityLevel"
@@ -333,18 +282,6 @@ export default function EditPrisonPage() {
                   <option value="高">高</option>
                   <option value="最高">最高</option>
                 </select>
-              </div>
-              
-              <div>
-                <label className="block text-[#ffd700] font-semibold mb-2">狱长姓名</label>
-                <input
-                  type="text"
-                  name="wardenName"
-                  value={formData.wardenName}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 bg-[#2a2a2a] border border-[#8b0000]/50 rounded-lg text-[#ffd700] focus:border-[#8b0000] focus:outline-none transition-colors"
-                  placeholder="请输入狱长姓名"
-                />
               </div>
             </div>
 

@@ -8,8 +8,6 @@ import com.example.service.repository.PrisonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,11 +45,6 @@ public class PrisonService {
         prison.setPrisonNumber(request.getPrisonNumber());
         prison.setDescription(request.getDescription());
         prison.setLocation(request.getLocation());
-        if (request.getEstablishedDate() != null && !request.getEstablishedDate().isEmpty()) {
-            prison.setEstablishedDate(LocalDateTime.parse(request.getEstablishedDate() + "T00:00:00"));
-        }
-        prison.setCapacity(request.getCapacity());
-        prison.setCurrentCount(request.getCurrentCount());
         prison.setSecurityLevel(request.getSecurityLevel());
         prison.setWardenName(request.getWardenName());
         prison.setContactPhone(request.getContactPhone());
@@ -77,11 +70,6 @@ public class PrisonService {
         prison.setPrisonNumber(request.getPrisonNumber());
         prison.setDescription(request.getDescription());
         prison.setLocation(request.getLocation());
-        if (request.getEstablishedDate() != null && !request.getEstablishedDate().isEmpty()) {
-            prison.setEstablishedDate(LocalDateTime.parse(request.getEstablishedDate() + "T00:00:00"));
-        }
-        prison.setCapacity(request.getCapacity());
-        prison.setCurrentCount(request.getCurrentCount());
         prison.setSecurityLevel(request.getSecurityLevel());
         prison.setWardenName(request.getWardenName());
         prison.setContactPhone(request.getContactPhone());
@@ -111,9 +99,6 @@ public class PrisonService {
         dto.setPrisonNumber(prison.getPrisonNumber());
         dto.setDescription(prison.getDescription());
         dto.setLocation(prison.getLocation());
-        dto.setEstablishedDate(prison.getEstablishedDate());
-        dto.setCapacity(prison.getCapacity());
-        dto.setCurrentCount(prison.getCurrentCount());
         dto.setSecurityLevel(prison.getSecurityLevel());
         dto.setWardenName(prison.getWardenName());
         dto.setContactPhone(prison.getContactPhone());

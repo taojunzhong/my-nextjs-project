@@ -11,9 +11,6 @@ public class PrisonDTO {
     private String prisonNumber;
     private String description;
     private String location;
-    private LocalDateTime establishedDate;
-    private Integer capacity;
-    private Integer currentCount;
     private String securityLevel;
     private String wardenName;
     private String contactPhone;

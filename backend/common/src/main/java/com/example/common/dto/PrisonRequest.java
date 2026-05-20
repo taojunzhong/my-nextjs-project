@@ -9,9 +9,6 @@ public class PrisonRequest {
     private String prisonNumber;
     private String description;
     private String location;
-    private String establishedDate;
-    private Integer capacity;
-    private Integer currentCount;
     private String securityLevel;
     private String wardenName;
     private String contactPhone;

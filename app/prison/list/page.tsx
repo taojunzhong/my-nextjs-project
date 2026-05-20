@@ -11,9 +11,6 @@ interface Prison {
   prisonNumber: string
   description: string
   location: string
-  establishedDate: string
-  capacity: number
-  currentCount: number
   securityLevel: string
   wardenName: string
   contactPhone: string
@@ -168,10 +165,6 @@ export default function PrisonListPage() {
                       <div className="flex items-center gap-2">
                         <span>🔒</span>
                         <span>安全等级: {prison.securityLevel || '暂无'}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span>👥</span>
-                        <span>容量: {prison.currentCount || 0} / {prison.capacity || 0}</span>
                       </div>
                     </div>
 

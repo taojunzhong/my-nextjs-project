@@ -25,15 +25,6 @@ public class PrisonEntity {
     @Column(name = "location", length = 200)
     private String location;
 
-    @Column(name = "established_date")
-    private LocalDateTime establishedDate;
-
-    @Column(name = "capacity")
-    private Integer capacity;
-
-    @Column(name = "current_count")
-    private Integer currentCount;
-
     @Column(name = "security_level", length = 50)
     private String securityLevel;
 

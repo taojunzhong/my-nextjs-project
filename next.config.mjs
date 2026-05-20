@@ -10,19 +10,19 @@ const nextConfig = {
     return [
       {
         source: '/api/auth/:path*',
-        destination: 'http://localhost:8080/api/auth/:path*',
+        destination: 'http://localhost:8081/api/auth/:path*',
       },
       {
         source: '/api/example/:path*',
-        destination: 'http://localhost:8080/api/example/:path*',
+        destination: 'http://localhost:8081/api/example/:path*',
       },
       {
         source: '/api/prison/:path*',
-        destination: 'http://localhost:8080/api/prison/:path*',
+        destination: 'http://localhost:8081/api/prison/:path*',
       },
       {
         source: '/api/upload/:path*',
-        destination: 'http://localhost:8080/api/upload/:path*',
+        destination: 'http://localhost:8081/api/upload/:path*',
       },
     ]
   },
