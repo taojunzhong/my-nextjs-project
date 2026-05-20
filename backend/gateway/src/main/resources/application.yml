@@ -31,6 +31,18 @@ spring:
             - Path=/api/auth/**
           filters:
             - StripPrefix=2
+        - id: service-prison
+          uri: lb://service-example
+          predicates:
+            - Path=/api/prison/**
+          filters:
+            - StripPrefix=2
+        - id: service-upload
+          uri: lb://service-example
+          predicates:
+            - Path=/api/upload/**
+          filters:
+            - StripPrefix=2
 
 logging:
   level:

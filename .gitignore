@@ -13,3 +13,8 @@ __v0_jsx-dev-runtime.ts
 node_modules
 .next/
 .DS_Store
+
+# Uploads (keep avatars folder but ignore contents)
+uploads/*
+!uploads/avatars/.gitkeep
+backend/uploads/*

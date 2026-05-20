@@ -6,6 +6,8 @@ const publicPaths = [
   '/register',
   '/api/auth/login',
   '/api/auth/register',
+  '/api/upload/avatar',
+  '/api/upload/avatars',
   '/favicon.ico',
 ]
 
