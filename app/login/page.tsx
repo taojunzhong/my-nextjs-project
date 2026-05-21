@@ -40,10 +40,16 @@ export default function LoginPage() {
 
       const data = await response.json()
       
-      if (response.ok) {
-        document.cookie = `token=${data.token}; path=/; max-age=86400; SameSite=Lax`
-        localStorage.setItem('token', data.token)
-        window.location.href = '/'
+      if (data.code === 200) {
+        const loginResponse = data.data
+        document.cookie = `token=${loginResponse.token}; path=/; max-age=86400; SameSite=Lax`
+        localStorage.setItem('token', loginResponse.token)
+        if (loginResponse.user && loginResponse.user.id) {
+          localStorage.setItem('userId', loginResponse.user.id.toString())
+          localStorage.setItem('username', loginResponse.user.username || '')
+          localStorage.setItem('avatar', loginResponse.user.avatar || '')
+        }
+        window.location.href = '/home'
       } else {
         setError(data.message || '登录失败')
       }

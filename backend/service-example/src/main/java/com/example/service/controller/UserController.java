@@ -4,6 +4,7 @@ import com.example.common.dto.LoginRequest;
 import com.example.common.dto.LoginResponse;
 import com.example.common.dto.RegisterRequest;
 import com.example.common.dto.UserDTO;
+import com.example.common.dto.UserUpdateRequest;
 import com.example.common.response.Result;
 import com.example.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,10 @@ public class UserController {
     @GetMapping("/user/{id}")
     public Result<UserDTO> getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
+    }
+
+    @PutMapping("/user/{id}")
+    public Result<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
+        return userService.updateUser(id, request);
     }
 }

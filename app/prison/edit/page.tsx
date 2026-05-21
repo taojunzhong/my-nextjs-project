@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { FloatingParticles } from '@/components/floating-particles'
 import { Footer } from '@/components/footer'
 
-export default function EditPrisonPage() {
+function EditPrisonContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
@@ -320,5 +320,21 @@ export default function EditPrisonPage() {
 
       <div className="fixed bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#5a4a3a] to-transparent z-10" />
     </main>
+  )
+}
+
+export default function EditPrisonPage() {
+  return (
+    <Suspense fallback={
+      <main className="relative min-h-screen bg-background overflow-hidden">
+        <FloatingParticles />
+        <div className="fixed inset-0 prison-grid opacity-20 pointer-events-none z-0" />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-[#d4a574] text-xl">加载中...</div>
+        </div>
+      </main>
+    }>
+      <EditPrisonContent />
+    </Suspense>
   )
 }

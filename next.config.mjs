@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  serverExternalPackages: ['encoding'],
   async rewrites() {
     return [
       {
@@ -23,6 +24,22 @@ const nextConfig = {
       {
         source: '/api/upload/:path*',
         destination: 'http://localhost:8081/api/upload/:path*',
+      },
+      {
+        source: '/api/comment/:path*',
+        destination: 'http://localhost:8081/api/comment/:path*',
+      },
+    ]
+  },
+  async headers() {
+    return [
+      {
+        source: '/api/upload/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Access-Control-Allow-Methods', value: 'POST, GET, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type' },
+        ],
       },
     ]
   },

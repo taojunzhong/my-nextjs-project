@@ -74,4 +74,49 @@ public class FileUploadController {
             return null;
         }
     }
+
+    @PostMapping("/video")
+    public Result<String> uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("prisonId") Long prisonId) {
+        if (file.isEmpty()) {
+            return Result.error(400, "请选择文件");
+        }
+
+        try {
+            String uploadDir = System.getProperty("user.dir") + File.separator + uploadPath + File.separator + "videos";
+            File dir = new File(uploadDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String originalFilename = file.getOriginalFilename();
+            String extension = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            }
+
+            String filename = "prison_" + prisonId + "_" + System.currentTimeMillis() + extension;
+
+            Path filePath = Paths.get(uploadDir, filename);
+            Files.write(filePath, file.getBytes());
+
+            String fileUrl = "/api/upload/videos/" + filename;
+
+            return Result.success("上传成功", fileUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Result.error(500, "上传失败: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/videos/{filename}")
+    public byte[] getVideo(@PathVariable String filename) {
+        try {
+            String uploadDir = System.getProperty("user.dir") + File.separator + uploadPath + File.separator + "videos";
+            Path filePath = Paths.get(uploadDir, filename);
+            return Files.readAllBytes(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

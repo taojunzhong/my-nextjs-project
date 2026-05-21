@@ -23,26 +23,23 @@ spring:
           uri: lb://service-example
           predicates:
             - Path=/api/example/**
-          filters:
-            - StripPrefix=2
         - id: service-auth
           uri: lb://service-example
           predicates:
             - Path=/api/auth/**
-          filters:
-            - StripPrefix=2
         - id: service-prison
           uri: lb://service-example
           predicates:
             - Path=/api/prison/**
-          filters:
-            - StripPrefix=2
         - id: service-upload
           uri: lb://service-example
           predicates:
             - Path=/api/upload/**
-          filters:
-            - StripPrefix=2
+        - id: service-comment
+          uri: lb://service-example
+          predicates:
+            - Path=/api/comment/**
+            - Path=/api/comment
 
 logging:
   level:

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Noto_Sans_SC } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { UserHeader } from '@/components/UserHeader'
 import './globals.css'
 
 const notoSansSC = Noto_Sans_SC({ 
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className="bg-background">
       <body className={`${notoSansSC.variable} font-sans antialiased`}>
+        <UserHeader />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

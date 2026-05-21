@@ -22,11 +22,14 @@ public class UserEntity {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @Column(name = "nickname", length = 50)
-    private String nickname;
+    @Column(name = "phone", length = 20)
+    private String phone;
 
-    @Column(name = "avatar", length = 255)
+    @Column(name = "avatar", length = 500)
     private String avatar;
+
+    @Column(name = "bio", length = 500)
+    private String bio;
 
     @Column(name = "status")
     private Integer status = 1;

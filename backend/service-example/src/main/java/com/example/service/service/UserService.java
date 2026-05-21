@@ -4,6 +4,7 @@ import com.example.common.dto.LoginRequest;
 import com.example.common.dto.LoginResponse;
 import com.example.common.dto.RegisterRequest;
 import com.example.common.dto.UserDTO;
+import com.example.common.dto.UserUpdateRequest;
 import com.example.common.entity.UserEntity;
 import com.example.common.response.Result;
 import com.example.service.repository.UserRepository;
@@ -59,7 +60,6 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setNickname(request.getUsername());
         user.setStatus(1);
 
         UserEntity savedUser = userRepository.save(user);
@@ -76,6 +76,46 @@ public class UserService {
         return Result.success(convertToDTO(user));
     }
 
+    public Result<UserDTO> updateUser(Long id, UserUpdateRequest request) {
+        UserEntity user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            return Result.error(404, "用户不存在");
+        }
+
+        if (request.getUsername() != null && !request.getUsername().isEmpty()) {
+            if (!user.getUsername().equals(request.getUsername()) && userRepository.existsByUsername(request.getUsername())) {
+                return Result.error(400, "用户名已存在");
+            }
+            user.setUsername(request.getUsername());
+        }
+
+        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+            if (!user.getEmail().equals(request.getEmail()) && userRepository.existsByEmail(request.getEmail())) {
+                return Result.error(400, "邮箱已被使用");
+            }
+            user.setEmail(request.getEmail());
+        }
+
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        if (request.getPhone() != null) {
+            user.setPhone(request.getPhone());
+        }
+
+        if (request.getAvatar() != null) {
+            user.setAvatar(request.getAvatar());
+        }
+
+        if (request.getBio() != null) {
+            user.setBio(request.getBio());
+        }
+
+        UserEntity savedUser = userRepository.save(user);
+        return Result.success("更新成功", convertToDTO(savedUser));
+    }
+
     private String generateToken(Long userId) {
         return "Bearer " + UUID.randomUUID().toString() + "-" + userId + "-" + System.currentTimeMillis();
     }
@@ -85,8 +125,9 @@ public class UserService {
         dto.setId(user.getId());
         dto.setUsername(user.getUsername());
         dto.setEmail(user.getEmail());
-        dto.setNickname(user.getNickname());
+        dto.setPhone(user.getPhone());
         dto.setAvatar(user.getAvatar());
+        dto.setBio(user.getBio());
         dto.setStatus(user.getStatus());
         return dto;
     }
